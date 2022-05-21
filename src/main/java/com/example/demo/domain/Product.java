@@ -1,16 +1,14 @@
 package com.example.demo.domain;
 
 import com.example.demo.enums.ProductState;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Builder
 @Entity
 @Table(name = "app_product")
 @Getter
@@ -38,6 +36,7 @@ public class Product {
   // 상품 상태
   private ProductState state;
 
+  @Builder.Default
   @OneToMany(mappedBy = "product")
   private Set<Order> orderSet = new HashSet<>();
 

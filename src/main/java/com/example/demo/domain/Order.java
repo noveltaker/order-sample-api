@@ -1,20 +1,20 @@
 package com.example.demo.domain;
 
 import com.example.demo.enums.OrderState;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
+@Builder
 @Entity
 @Table(name = "app_order")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = "id")
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
   // 주문번호
@@ -41,7 +41,9 @@ public class Order {
 
   @PrePersist
   void prePersist() {
-    this.count = 0;
+    if (Objects.equals(null, this.count)) {
+      this.count = 0;
+    }
     this.state = OrderState.READY;
   }
 }
