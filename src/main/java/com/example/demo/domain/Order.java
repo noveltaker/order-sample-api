@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(name = "app_order")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -35,7 +35,9 @@ public class Order {
   // 주문일자
   @CreatedDate private Date date;
 
-  @ManyToOne private Product product;
+  @ManyToOne
+  @JoinColumn(name = "product_id", referencedColumnName = "id")
+  private Product product;
 
   @PrePersist
   void prePersist() {
