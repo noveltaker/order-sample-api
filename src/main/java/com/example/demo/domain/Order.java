@@ -26,6 +26,10 @@ public class Order {
   @Column(nullable = false)
   private Long userId;
 
+  // 상품 번호
+  @Column(nullable = false)
+  private Long productId;
+
   // 주문 수량
   private Integer count;
 
@@ -34,10 +38,6 @@ public class Order {
 
   // 주문일자
   @CreatedDate private Date date;
-
-  @ManyToOne
-  @JoinColumn(name = "product_id", referencedColumnName = "id")
-  private Product product;
 
   @PrePersist
   void prePersist() {
