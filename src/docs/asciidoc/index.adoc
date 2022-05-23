@@ -1,0 +1,199 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+= Spring REST Docs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[created-order]]
+== Order
+
+[[resources-created-order]]
+=== Order 생성
+
+==== Curl Request
+
+include::{snippets}/created-order/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/created-order/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/created-order/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/created-order/httpie-request.adoc[]
+
+==== RequestBody
+
+include::{snippets}/created-order/request-body.adoc[]
+
+==== Request Fields
+
+include::{snippets}/created-order/request-fields.adoc[]
+
+==== Response Body
+
+include::{snippets}/created-order/response-body.adoc[]
+
+[[created-order_4xx-client-error]]
+=== Order 생성 (4xxError)
+
+==== Curl Request
+
+include::{snippets}/created-order_4xx-client-error/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/created-order_4xx-client-error/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/created-order_4xx-client-error/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/created-order_4xx-client-error/httpie-request.adoc[]
+
+[[get-order-list]]
+=== Order 전체 목록
+
+==== Curl Request
+
+include::{snippets}/get-order-list/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/get-order-list/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/get-order-list/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/get-order-list/httpie-request.adoc[]
+
+==== Response Body
+
+include::{snippets}/get-order-list/response-body.adoc[]
+
+[[get-order-list_4xx-client-error]]
+=== Order 전체 목록 (4xx)
+
+==== Curl Request
+
+include::{snippets}/get-order-list_4xx-client-error/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/get-order-list_4xx-client-error/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/get-order-list_4xx-client-error/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/get-order-list_4xx-client-error/httpie-request.adoc[]
+
+==== Response Body
+
+include::{snippets}/get-order-list_4xx-client-error/response-body.adoc[]
+
+[[get-order-one]]
+=== Order 단일
+
+==== Curl Request
+
+include::{snippets}/get-order-one/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/get-order-one/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/get-order-one/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/get-order-one/httpie-request.adoc[]
+
+==== Response Body
+
+include::{snippets}/get-order-one/response-body.adoc[]
+
+[[get-order-one_-no-content]]
+=== Order 단일 (no content)
+
+==== Curl Request
+
+include::{snippets}/get-order-one_-no-content/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/get-order-one_-no-content/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/get-order-one_-no-content/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/get-order-one_-no-content/httpie-request.adoc[]
+
+==== Response Body
+
+include::{snippets}/get-order-one_-no-content/response-body.adoc[]
+
+[[get-product-orders]]
+=== Product's Orders 목록
+
+==== Curl Request
+
+include::{snippets}/get-product-orders/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/get-product-orders/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/get-product-orders/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/get-product-orders/httpie-request.adoc[]
+
+==== Response Body
+
+include::{snippets}/get-product-orders/response-body.adoc[]
+
+[[get-user-orders]]
+=== User's Orders 목록
+
+==== Curl Request
+
+include::{snippets}/get-user-orders/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/get-user-orders/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/get-user-orders/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/get-user-orders/httpie-request.adoc[]
+
+==== Response Body
+
+include::{snippets}/get-user-orders/response-body.adoc[]
+

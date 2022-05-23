@@ -6,7 +6,6 @@ import com.example.demo.service.OrderService;
 import com.example.demo.service.dto.OrderDTO;
 import com.example.demo.service.dto.OrderInfo;
 import com.example.demo.service.dto.PageDTO;
-import com.example.demo.web.docs.OrderControllerDocs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -18,10 +17,11 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class OrderController implements OrderControllerDocs {
+public class OrderController {
 
   private final OrderService orderService;
 
+  @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/order")
   public Order createdOrder(@RequestBody @Valid OrderDTO dto) {
     return orderService.createdOrder(dto);

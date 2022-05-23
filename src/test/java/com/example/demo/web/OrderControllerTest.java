@@ -10,10 +10,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -24,11 +27,20 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+
+@AutoConfigureRestDocs
+@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @WebMvcTest(OrderController.class)
 class OrderControllerTest {
 
@@ -37,10 +49,16 @@ class OrderControllerTest {
   @MockBean private OrderService orderService;
 
   @BeforeEach
-  void init() {
+  void init(RestDocumentationContextProvider restDocumentation) {
     mockMvc =
         MockMvcBuilders.standaloneSetup(new OrderController(orderService))
             .addFilter(new CharacterEncodingFilter("UTF-8", true))
+            .apply(documentationConfiguration(restDocumentation))
+            .alwaysDo(
+                document(
+                    "{method-name}",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint())))
             .build();
   }
 
@@ -60,12 +78,19 @@ class OrderControllerTest {
                     .content(JsonUtil.convertObjectToJson(dto))
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8"))
-            .andDo(print());
+            .andDo(print())
+            .andDo(
+                document(
+                    "created-order",
+                    requestFields(
+                        fieldWithPath("userId").description("User 아이디"),
+                        fieldWithPath("productId").description("Product 아이디"),
+                        fieldWithPath("count").description("주문갯수"))));
 
     BDDMockito.then(orderService).should().createdOrder(any());
 
     action
-        .andExpect(status().isOk())
+        .andExpect(status().isCreated())
         .andExpect(jsonPath("$['id']").value(mock.getId()))
         .andExpect(jsonPath("$['userId']").value(mock.getUserId()))
         .andExpect(jsonPath("$['productId']").value(mock.getProductId()))

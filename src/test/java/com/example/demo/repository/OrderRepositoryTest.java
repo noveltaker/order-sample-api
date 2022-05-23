@@ -45,6 +45,7 @@ class OrderRepositoryTest {
     @BeforeEach
     void init() {
       mock = orderRepository.save(OrderMock.createdMock());
+      orderRepository.flush();
     }
 
     @Test
@@ -115,7 +116,7 @@ class OrderRepositoryTest {
     @Test
     void findById() {
 
-      Optional<OrderInfo> entityOptional = orderRepository.findById(1L, OrderInfo.class);
+      Optional<OrderInfo> entityOptional = orderRepository.findById(mock.getId(), OrderInfo.class);
 
       Assertions.assertTrue(entityOptional.isPresent());
 
@@ -127,6 +128,12 @@ class OrderRepositoryTest {
       Assertions.assertEquals(mock.getState(), entity.getState());
       Assertions.assertEquals(mock.getDate(), entity.getDate());
       Assertions.assertEquals(mock.getProductId(), entity.getProductId());
+    }
+
+    @AfterEach
+    void clear() {
+      orderRepository.delete(mock);
+      orderRepository.flush();
     }
   }
 }
