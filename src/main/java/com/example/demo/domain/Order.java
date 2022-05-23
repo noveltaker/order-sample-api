@@ -10,9 +10,9 @@ import java.util.Objects;
 
 @Builder
 @Entity
-@Table(name = "app_order")
 @Getter
-@EqualsAndHashCode(of = "id")
+@Table(name = "app_order")
+@EqualsAndHashCode(of = {"id"})
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
