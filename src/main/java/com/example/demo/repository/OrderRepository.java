@@ -11,11 +11,11 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-  <T> Optional<T> findById(Long id, Class<T> type);
-
-  <T> Page<T> findAllProjectedBy(Pageable pageable, Class<T> type);
-
-  <T> Page<T> findAllByUserId(Pageable pageable, Long userId, Class<T> type);
-
-  <T> Page<T> findAllByProductId(Pageable pageable, Long product, Class<T> type);
+//  <T> Optional<T> findById(Long id, Class<T> type);
+//
+//  <T> Page<T> findAllProjectedBy(Pageable pageable, Class<T> type);
+//
+//  <T> Page<T> findAllByUserId(Pageable pageable, Long userId, Class<T> type);
+//
+//  <T> Page<T> findAllByProductId(Pageable pageable, Long product, Class<T> type);
 }

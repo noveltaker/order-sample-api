@@ -17,8 +17,4 @@ public class PageDTO {
   public PageRequest getPageRequest() {
     return PageRequest.of(page, size);
   }
-
-  public OrdersDTO toOrdersDTO(Long id) {
-    return OrdersDTO.builder().page(this.page).size(this.size).searchId(id).build();
-  }
 }

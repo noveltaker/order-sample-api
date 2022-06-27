@@ -9,43 +9,23 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
-@Builder
-@Entity
 @Getter
-@Table(name = "app_order")
-@EqualsAndHashCode(of = {"id"})
+@Builder
 @AllArgsConstructor
+@Entity(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EntityListeners(AuditingEntityListener.class)
-public class Order {
+public class Order extends AbstractCreatedDate {
 
   // 주문번호
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  // 유저 아이디
-  @Column(nullable = false)
-  private Long userId;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
 
-  // 상품 번호
-  @Column(nullable = false)
-  private Long productId;
-
-  // 주문 수량
-  private Integer count;
-
-  // 주문 상태
-  private OrderState state;
-
-  // 주문일자
-  @CreatedDate private Date date;
-
-  @PrePersist
-  void prePersist() {
-    if (Objects.equals(null, this.count)) {
-      this.count = 0;
-    }
-    this.state = OrderState.READY;
-  }
+  @ManyToOne
+  @JoinColumn(name = "product_id")
+  private Product product;
 }
