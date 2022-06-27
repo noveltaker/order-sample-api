@@ -1,8 +1,12 @@
 package com.example.demo.enums;
 
 public enum MsgType implements BaseEnum<String> {
-  EmptyParameter("D002", "empty parameter"),
+
+  // data error
   EmptyRequestBody("D001", "request body no data"),
+  EmptyParameter("D002", "empty parameter"),
+
+  // system error
   ServerError("S001", "server error");
 
   private final String code;
