@@ -2,6 +2,7 @@ package com.example.demo.utils;
 
 import com.example.demo.contracts.MsgType;
 import com.example.demo.service.dto.MsgDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class MessageUtil {
+
+  private final JsonUtil jsonUtil;
 
   public void createErrorMessage(
       HttpStatus status, HttpServletResponse response, Exception ex, MsgType errorType)
@@ -33,6 +37,6 @@ public class MessageUtil {
 
     response.setContentType("application/json");
 
-    response.getWriter().write(JsonUtil.convertObjectToJson(message));
+    response.getWriter().write(jsonUtil.convertObjectToJson(message));
   }
 }
