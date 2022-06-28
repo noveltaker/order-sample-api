@@ -10,5 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
+  <T> Page<T> findAllProjectedBy(Pageable pageable, Class<T> type);
+
   <T> Page<T> findAllProjectedByUser(Pageable pageable, User user, Class<T> type);
 }

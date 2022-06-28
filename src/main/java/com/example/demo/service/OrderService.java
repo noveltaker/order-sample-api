@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 
 public interface OrderService {
 
-  Page<OrderInfo> getOrdersByUserId(Long userId, PageDTO dto);
+  Page<OrderInfo> getOrders(Long userId, PageDTO dto);
 
   Order createdOrder(Long userId, Long productId);
 }

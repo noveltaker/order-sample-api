@@ -12,6 +12,7 @@ import com.example.demo.service.dto.OrderInfo;
 import com.example.demo.service.dto.PageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,14 +28,20 @@ public class OrderServiceImpl implements OrderService {
 
   @Override
   @Transactional(readOnly = true)
-  public Page<OrderInfo> getOrdersByUserId(Long userId, PageDTO dto) {
+  public Page<OrderInfo> getOrders(Long userId, PageDTO dto) {
+
+    PageRequest pageable = dto.getPageRequest();
+
+    if (userId == null) {
+      return productRepository.findAllProjectedBy(pageable, OrderInfo.class);
+    }
 
     User user =
         userRepository
             .findById(userId)
             .orElseThrow(() -> new NoDataException(MsgType.NotFoundUserData));
 
-    return orderRepository.findAllProjectedByUser(dto.getPageRequest(), user, OrderInfo.class);
+    return orderRepository.findAllProjectedByUser(pageable, user, OrderInfo.class);
   }
 
   @Override

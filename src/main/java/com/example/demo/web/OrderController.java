@@ -17,10 +17,10 @@ public class OrderController {
 
   private final OrderService orderService;
 
-  @GetMapping("user/{id}/orders")
-  public ResponseEntity<Page<OrderInfo>> getOrdersByUser(@PathVariable Long userId, PageDTO dto) {
+  @GetMapping("orders")
+  public ResponseEntity<Page<OrderInfo>> getOrdersByUser(PageDTO dto, Long userId) {
 
-    Page<OrderInfo> data = orderService.getOrdersByUserId(userId, dto);
+    Page<OrderInfo> data = orderService.getOrders(userId, dto);
 
     if (data.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
