@@ -43,6 +43,22 @@ class UserRepositoryTest {
     }
 
     @Test
+    @DisplayName("이메일별 조회 로직")
+    void findByEmail() {
+
+      String mockEmail = mock.getEmail();
+
+      User entity = userRepository.findByEmail(mockEmail).orElseThrow();
+
+      Assertions.assertEquals(entity.getId(), mock.getId());
+      Assertions.assertEquals(entity.getEmail(), mock.getEmail());
+      Assertions.assertEquals(entity.getPassword(), mock.getPassword());
+      Assertions.assertEquals(entity.getRoleName(), mock.getRoleName());
+      Assertions.assertEquals(entity.getCreatedDate(), mock.getCreatedDate());
+      Assertions.assertEquals(entity.getUpdatedDate(), mock.getUpdatedDate());
+    }
+
+    @Test
     @DisplayName("이메일이 존재 할때")
     void existsByEmail_True() {
       String email = mock.getEmail();
