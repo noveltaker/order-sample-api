@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.example.demo.contracts.RoleName;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,23 +12,33 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Column(nullable = false)
-  private String email;
+    @Column(nullable = false)
+    private String email;
 
-  @Column(name = "password_hash", nullable = false)
-  private String password;
+    @Column(name = "password_hash", nullable = false)
+    private String password;
 
-  @OneToMany(mappedBy = "user")
-  private Set<Order> orders = new HashSet<>();
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private RoleName roleName;
 
-  @Builder
-  private User(Long id, String email, String password) {
-    this.id = id;
-    this.email = email;
-    this.password = password;
-  }
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders = new HashSet<>();
+
+    @Builder
+    private User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    @PrePersist
+    void prePersist() {
+        if (null == this.roleName) {
+            this.roleName = RoleName.ROLE_USER;
+        }
+    }
 }

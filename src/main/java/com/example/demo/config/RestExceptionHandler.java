@@ -1,7 +1,7 @@
 package com.example.demo.config;
 
 import com.example.demo.config.exception.BaseException;
-import com.example.demo.enums.MsgType;
+import com.example.demo.contracts.MsgType;
 import com.example.demo.service.dto.MsgDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;

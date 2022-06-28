@@ -1,13 +1,8 @@
 package com.example.demo.domain;
 
-import com.example.demo.enums.OrderState;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
 
 @Getter
 @Builder
