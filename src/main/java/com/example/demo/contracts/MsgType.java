@@ -6,6 +6,9 @@ public enum MsgType implements BaseEnum<String> {
   EmptyRequestBody("D001", "request body no data"),
   EmptyParameter("D002", "empty parameter"),
 
+  // domain
+  NotFoundUserData("D003", "not found user data"),
+
   // system error
   ServerError("S001", "server error");
 
