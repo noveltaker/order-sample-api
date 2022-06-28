@@ -20,8 +20,8 @@ public class Product {
   @Column(nullable = false)
   private String name;
 
-  // 상품 금액
-  private Integer amount;
+  // 상품 금액 (원화)
+  private String amount;
 
   @OneToMany(mappedBy = "product")
   private Set<Order> orders = new HashSet<>();
@@ -29,11 +29,13 @@ public class Product {
   @PrePersist
   void prePersist() {
     // null 일시 0으로 초기화
-    if (this.amount == null) this.amount = 0;
+    if (null == this.amount) {
+      this.amount = "0원";
+    }
   }
 
   @Builder
-  private Product(String name, Integer amount) {
+  private Product(String name, String amount) {
     this.name = name;
     this.amount = amount;
   }
