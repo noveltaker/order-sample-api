@@ -8,6 +8,7 @@ public enum MsgType implements BaseEnum<String> {
   // domain
   NotFoundUserData("D003", "not found user data"),
   ExistsEmail("D004", "exists email data"),
+  NotFoundProductData("D005", "not found product data"),
 
   // system error
   ServerError("S001", "server error"),
