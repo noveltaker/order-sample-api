@@ -7,6 +7,8 @@ public enum MsgType implements BaseEnum<String> {
   EmptyParameter("D002", "empty parameter"),
   // domain
   NotFoundUserData("D003", "not found user data"),
+  ExistsEmail("D004", "exists email data"),
+
   // system error
   ServerError("S001", "server error"),
   // jwt error

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.config.exception.ExistsEmailException;
 import com.example.demo.domain.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.dto.UserDTO;
@@ -16,6 +17,11 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public User signUp(UserDTO dto) {
+
+    if (userRepository.existsByEmail(dto.getEmail())) {
+      throw new ExistsEmailException();
+    }
+
     return userRepository.save(dto.toEntity());
   }
 }
