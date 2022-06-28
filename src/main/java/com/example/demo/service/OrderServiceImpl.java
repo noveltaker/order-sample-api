@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     PageRequest pageable = dto.getPageRequest();
 
     if (userId == null) {
-      return productRepository.findAllProjectedBy(pageable, OrderInfo.class);
+      return orderRepository.findAllProjectedBy(pageable, OrderInfo.class);
     }
 
     User user =
