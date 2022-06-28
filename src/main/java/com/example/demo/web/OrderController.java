@@ -17,7 +17,7 @@ public class OrderController {
 
   private final OrderService orderService;
 
-  @GetMapping("user/{id]/orders")
+  @GetMapping("user/{id}/orders")
   public ResponseEntity<Page<OrderInfo>> getOrdersByUser(@PathVariable Long userId, PageDTO dto) {
 
     Page<OrderInfo> data = orderService.getOrdersByUserId(userId, dto);
