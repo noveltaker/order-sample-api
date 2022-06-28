@@ -1,7 +1,10 @@
 package com.example.demo.domain;
 
 import com.example.demo.contracts.RoleName;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -35,9 +38,7 @@ public class User extends AbstractDateEntity {
     this.password = password;
   }
 
-  @Builder(
-      builderClassName = "LoginBuilder",
-      builderMethodName = "loginBuilder")
+  @Builder(builderClassName = "LoginBuilder", builderMethodName = "loginBuilder")
   private User(String email, RoleName roleName) {
     this.email = email;
     this.roleName = roleName;

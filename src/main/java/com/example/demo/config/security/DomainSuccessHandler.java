@@ -1,5 +1,7 @@
 package com.example.demo.config.security;
 
+import com.example.demo.domain.RefreshToken;
+import com.example.demo.repository.RefreshTokenRepository;
 import com.example.demo.service.dto.LoginDTO;
 import com.example.demo.utils.JwtUtil;
 import com.example.demo.utils.MessageUtil;
@@ -25,6 +27,8 @@ public class DomainSuccessHandler implements AuthenticationSuccessHandler {
 
   private final MessageUtil messageUtil;
 
+  private final RefreshTokenRepository refreshTokenRepository;
+
   @Override
   public void onAuthenticationSuccess(
       HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -36,7 +40,15 @@ public class DomainSuccessHandler implements AuthenticationSuccessHandler {
 
     String accessToken = jwtUtil.createdAccessToken(jwtKey, email, null);
 
-    LoginDTO loginMessage = LoginDTO.builder().accessToken(accessToken).build();
+    String refreshToken = jwtUtil.createdRefreshToken(jwtKey, email, null);
+
+    LoginDTO loginMessage =
+        LoginDTO.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+
+    RefreshToken refreshTokenData =
+        RefreshToken.builder().userId(user.getLoginUser().getId()).token(refreshToken).build();
+
+    refreshTokenRepository.save(refreshTokenData);
 
     messageUtil.createMessage(HttpStatus.OK, response, loginMessage);
   }

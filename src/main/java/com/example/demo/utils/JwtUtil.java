@@ -18,6 +18,11 @@ public class JwtUtil {
         key, email, roleName, new Date(new Date().getTime() + Duration.ofMinutes(30).toMillis()));
   }
 
+  public String createdRefreshToken(String key, String email, String roleName) {
+    return createToken(
+        key, email, roleName, new Date(new Date().getTime() + Duration.ofMinutes(60).toMillis()));
+  }
+
   private String createToken(String secretKey, String email, String roleName, Date expiration) {
     Date now = new Date();
     return Jwts.builder()
