@@ -10,35 +10,35 @@ import java.util.Set;
 @Getter
 @Entity(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends AbstractDateEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false)
-    private String email;
+  @Column(nullable = false)
+  private String email;
 
-    @Column(name = "password_hash", nullable = false)
-    private String password;
+  @Column(name = "password_hash", nullable = false)
+  private String password;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleName roleName;
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private RoleName roleName;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Order> orders = new HashSet<>();
+  @OneToMany(mappedBy = "user")
+  private Set<Order> orders = new HashSet<>();
 
-    @Builder
-    private User(String email, String password) {
-        this.email = email;
-        this.password = password;
+  @Builder
+  private User(String email, String password) {
+    this.email = email;
+    this.password = password;
+  }
+
+  @PrePersist
+  void prePersist() {
+    if (null == this.roleName) {
+      this.roleName = RoleName.ROLE_USER;
     }
-
-    @PrePersist
-    void prePersist() {
-        if (null == this.roleName) {
-            this.roleName = RoleName.ROLE_USER;
-        }
-    }
+  }
 }
