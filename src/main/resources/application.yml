@@ -24,3 +24,8 @@ logging:
   level:
     org:
       hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+
+## JWT KEY
+jwt:
+  key: testsdfasdf3=

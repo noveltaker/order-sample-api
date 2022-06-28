@@ -35,6 +35,14 @@ public class User extends AbstractDateEntity {
     this.password = password;
   }
 
+  @Builder(
+      builderClassName = "LoginBuilder",
+      builderMethodName = "loginBuilder")
+  private User(String email, RoleName roleName) {
+    this.email = email;
+    this.roleName = roleName;
+  }
+
   @PrePersist
   void prePersist() {
     if (null == this.roleName) {

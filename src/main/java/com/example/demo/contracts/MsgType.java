@@ -5,12 +5,17 @@ public enum MsgType implements BaseEnum<String> {
   // data error
   EmptyRequestBody("D001", "request body no data"),
   EmptyParameter("D002", "empty parameter"),
-
   // domain
   NotFoundUserData("D003", "not found user data"),
-
   // system error
-  ServerError("S001", "server error");
+  ServerError("S001", "server error"),
+  // jwt error
+  JwtUnsupported("J001", "jwt not supported"),
+  JwtMalformed("J002", "jwt malformed"),
+  JwtExpired("J003", "jwt expired"),
+  JwtSignature("J003", "jwt signature"),
+  // Authentication
+  AuthenticationError("A001", "authentication error");
 
   private final String code;
 
