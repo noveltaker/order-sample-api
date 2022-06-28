@@ -33,8 +33,7 @@ public class Product {
   }
 
   @Builder
-  private Product(Long id, String name, Integer amount) {
-    this.id = id;
+  private Product(String name, Integer amount) {
     this.name = name;
     this.amount = amount;
   }
