@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
   <T> Page<T> findAllProjectedBy(Pageable pageable, Class<T> type);
 }
