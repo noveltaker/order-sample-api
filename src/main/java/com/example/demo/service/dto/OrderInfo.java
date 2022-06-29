@@ -15,9 +15,9 @@ public interface OrderInfo {
   Date getOrderDate();
 
   //  상품명
-  @Value("#{target.prodcut.name}")
-  Long getProductName();
+  @Value("#{target.product.name}")
+  String getProductName();
 
   @Value("#{target.product.amount}")
-  Integer getAmount();
+  String getAmount();
 }
