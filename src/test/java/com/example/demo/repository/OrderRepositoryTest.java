@@ -90,7 +90,27 @@ class OrderRepositoryTest {
           orderRepository.findAllProjectedBy(pageable.getPageRequest(), OrderInfo.class);
 
       List<OrderInfo> content = pageEntities.getContent();
+      OrderInfo entity = content.get(0);
 
+      Assertions.assertFalse(pageEntities.isEmpty());
+      Assertions.assertEquals(content.size(), 1);
+      Assertions.assertEquals(entity.getOrderId(), mock.getId());
+      Assertions.assertEquals(entity.getOrderDate(), mock.getCreatedDate());
+      Assertions.assertEquals(entity.getProductName(), mock.getProduct().getName());
+      Assertions.assertEquals(entity.getAmount(), mock.getProduct().getAmount());
+    }
+
+    @Test
+    @DisplayName("유저 아이디 별로 주문 조회 테스트 케이스")
+    void findAllProjectedByUser() {
+
+      PageDTO pageable = PageDTOMock.createdDTO();
+
+      Page<OrderInfo> pageEntities =
+          orderRepository.findAllProjectedByUser(
+              pageable.getPageRequest(), userMock, OrderInfo.class);
+
+      List<OrderInfo> content = pageEntities.getContent();
       OrderInfo entity = content.get(0);
 
       Assertions.assertFalse(pageEntities.isEmpty());
