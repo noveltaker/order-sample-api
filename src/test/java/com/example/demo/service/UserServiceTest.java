@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.config.exception.ExistsEmailException;
+import com.example.demo.domain.RefreshToken;
 import com.example.demo.domain.User;
+import com.example.demo.mock.RefreshTokenMock;
 import com.example.demo.mock.UserMock;
 import com.example.demo.repository.RefreshTokenRepository;
 import com.example.demo.repository.UserRepository;
@@ -80,10 +82,35 @@ class UserServiceTest {
 
     User entity = userService.signUp(dto);
 
+    BDDMockito.then(userRepository).should().existsByEmail(any());
+
+    BDDMockito.then(passwordEncoder).should().encode(any());
+
+    BDDMockito.then(userRepository).should().save(any());
+
     Assertions.assertEquals(entity.getEmail(), mock.getEmail());
     Assertions.assertEquals(entity.getPassword(), encodePassword);
     Assertions.assertEquals(entity.getRoleName(), mock.getRoleName());
     Assertions.assertEquals(entity.getCreatedDate(), mock.getCreatedDate());
     Assertions.assertEquals(entity.getUpdatedDate(), mock.getUpdatedDate());
+  }
+
+  @Test
+  @DisplayName("로그아웃 로직")
+  void logout() {
+
+    Long userId = 1L;
+
+    Optional<RefreshToken> refreshTokenOptional = Optional.of(RefreshTokenMock.createdMock());
+
+    BDDMockito.given(refreshTokenRepository.findById(any())).willReturn(refreshTokenOptional);
+
+    BDDMockito.willDoNothing().given(refreshTokenRepository).delete(any());
+
+    userService.logout(userId);
+
+    BDDMockito.then(refreshTokenRepository).should().findById(any());
+
+    BDDMockito.then(refreshTokenRepository).should().delete(any());
   }
 }
