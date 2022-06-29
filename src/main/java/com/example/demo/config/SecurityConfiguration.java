@@ -3,9 +3,11 @@ package com.example.demo.config;
 import com.example.demo.config.security.JwtExceptionFilter;
 import com.example.demo.config.security.JwtLoginFilter;
 import com.example.demo.config.security.JwtValidFilter;
+import com.example.demo.utils.AuthUtil;
 import com.example.demo.utils.JwtUtil;
 import com.example.demo.utils.MessageUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +33,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private final JwtUtil jwtUtil;
 
+  private final AuthUtil authUtil;
+
+  @Value("${jwt.key}")
+  private String jwtKey;
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf()
@@ -42,7 +49,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .addFilterBefore(
             new JwtExceptionFilter(messageUtil), UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(jwtLoginFilter(), UsernamePasswordAuthenticationFilter.class)
-        .addFilterBefore(new JwtValidFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(
+            new JwtValidFilter(jwtUtil, jwtKey, authUtil),
+            UsernamePasswordAuthenticationFilter.class);
   }
 
   @Bean

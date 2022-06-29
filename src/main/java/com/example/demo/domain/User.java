@@ -42,6 +42,7 @@ public class User extends AbstractDateEntity {
   private User(Long id, String email, RoleName roleName) {
     this.id = id;
     this.email = email;
+    this.password = "";
     this.roleName = roleName;
   }
 

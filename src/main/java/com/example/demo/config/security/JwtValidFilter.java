@@ -2,10 +2,10 @@ package com.example.demo.config.security;
 
 import com.example.demo.contracts.RoleName;
 import com.example.demo.domain.User;
+import com.example.demo.utils.AuthUtil;
 import com.example.demo.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -29,8 +28,9 @@ public class JwtValidFilter extends OncePerRequestFilter {
 
   private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
-  @Value("${jwt.key}")
-  private String jwtKey;
+  private final String jwtKey;
+
+  private final AuthUtil authUtil;
 
   @Override
   protected void doFilterInternal(
@@ -41,15 +41,15 @@ public class JwtValidFilter extends OncePerRequestFilter {
 
     Claims claims = jwtUtil.parseJwtToken(authorization, jwtKey);
 
-    Long id = (Long) claims.get("id");
+    Long id = Long.valueOf((Integer) claims.get("id"));
 
     String email = (String) claims.get("email");
 
-    RoleName roleName = (RoleName) claims.get("roleName");
+    RoleName roleName = RoleName.valueOf((String) claims.get("roleName"));
 
     User loginUser = User.loginBuilder().id(id).email(email).roleName(roleName).build();
 
-    DomainUser domainUser = new DomainUser(loginUser, new ArrayList<>());
+    DomainUser domainUser = new DomainUser(loginUser, authUtil.getAuthority(roleName));
 
     UsernamePasswordAuthenticationToken authorityUser =
         new UsernamePasswordAuthenticationToken(
