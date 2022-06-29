@@ -6,5 +6,5 @@ public interface ProductInfo {
   // 명
   String getName();
   // 금액
-  Integer getAmount();
+  String getAmount();
 }
