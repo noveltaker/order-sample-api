@@ -9,6 +9,7 @@ import com.example.demo.repository.RefreshTokenRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService {
 
   private final RefreshTokenRepository refreshTokenRepository;
 
+  private final PasswordEncoder passwordEncoder;
+
   @Override
   @Transactional
   public User signUp(UserDTO dto) {
@@ -28,7 +31,13 @@ public class UserServiceImpl implements UserService {
       throw new ExistsEmailException();
     }
 
-    return userRepository.save(dto.toEntity());
+    String encodePassword = passwordEncoder.encode(dto.getPassword());
+
+    User entity = dto.toEntity(encodePassword);
+
+    userRepository.save(entity);
+
+    return entity;
   }
 
   @Override
