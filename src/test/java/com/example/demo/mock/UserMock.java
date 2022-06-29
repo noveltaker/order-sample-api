@@ -1,6 +1,7 @@
 package com.example.demo.mock;
 
 import com.example.demo.domain.User;
+import com.example.demo.service.dto.UserDTO;
 
 public class UserMock {
 
@@ -10,5 +11,9 @@ public class UserMock {
 
   public static User createdMock() {
     return User.defaultBuilder().id(1L).email(email).password(password).build();
+  }
+
+  public static UserDTO createdMockDTO() {
+    return new UserDTO(email, password);
   }
 }
