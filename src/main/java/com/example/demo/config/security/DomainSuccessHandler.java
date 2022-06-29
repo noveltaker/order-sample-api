@@ -1,6 +1,8 @@
 package com.example.demo.config.security;
 
+import com.example.demo.contracts.RoleName;
 import com.example.demo.domain.RefreshToken;
+import com.example.demo.domain.User;
 import com.example.demo.repository.RefreshTokenRepository;
 import com.example.demo.service.dto.LoginDTO;
 import com.example.demo.utils.JwtUtil;
@@ -36,11 +38,17 @@ public class DomainSuccessHandler implements AuthenticationSuccessHandler {
 
     DomainUser user = (DomainUser) authentication.getPrincipal();
 
-    String email = user.getUsername();
+    User loginUser = user.getLoginUser();
 
-    String accessToken = jwtUtil.createdAccessToken(jwtKey, email, null);
+    Long id = loginUser.getId();
 
-    String refreshToken = jwtUtil.createdRefreshToken(jwtKey, email, null);
+    String email = loginUser.getEmail();
+
+    RoleName roleName = loginUser.getRoleName();
+
+    String accessToken = jwtUtil.createdAccessToken(jwtKey, id, email, roleName);
+
+    String refreshToken = jwtUtil.createdRefreshToken(jwtKey, id, email, roleName);
 
     LoginDTO loginMessage =
         LoginDTO.builder().accessToken(accessToken).refreshToken(refreshToken).build();

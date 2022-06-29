@@ -39,7 +39,8 @@ public class User extends AbstractDateEntity {
   }
 
   @Builder(builderClassName = "LoginBuilder", builderMethodName = "loginBuilder")
-  private User(String email, RoleName roleName) {
+  private User(Long id, String email, RoleName roleName) {
+    this.id = id;
     this.email = email;
     this.roleName = roleName;
   }

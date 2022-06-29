@@ -1,5 +1,6 @@
 package com.example.demo.config.security;
 
+import com.example.demo.contracts.RoleName;
 import com.example.demo.domain.User;
 import com.example.demo.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -16,11 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 
 @RequiredArgsConstructor
 public class JwtValidFilter extends OncePerRequestFilter {
 
+  private final Set<String> skipUrls = Set.of("/login", "/sign-up", "/logout");
+
   private final JwtUtil jwtUtil;
+
+  private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
   @Value("${jwt.key}")
   private String jwtKey;
@@ -34,9 +41,13 @@ public class JwtValidFilter extends OncePerRequestFilter {
 
     Claims claims = jwtUtil.parseJwtToken(authorization, jwtKey);
 
+    Long id = (Long) claims.get("id");
+
     String email = (String) claims.get("email");
 
-    User loginUser = User.loginBuilder().email(email).build();
+    RoleName roleName = (RoleName) claims.get("roleName");
+
+    User loginUser = User.loginBuilder().id(id).email(email).roleName(roleName).build();
 
     DomainUser domainUser = new DomainUser(loginUser, new ArrayList<>());
 
@@ -51,9 +62,7 @@ public class JwtValidFilter extends OncePerRequestFilter {
 
   @Override
   protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-    String uri = request.getRequestURI();
-    String method = request.getMethod();
-    return !((uri.startsWith("/api/user") && !"POST".equals(method))
-        || uri.startsWith("/api/users"));
+    return skipUrls.stream()
+        .anyMatch(pattern -> pathMatcher.match(pattern, request.getRequestURI()));
   }
 }

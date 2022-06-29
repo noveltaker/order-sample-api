@@ -14,7 +14,7 @@ public class UserController {
 
   private final UserService userService;
 
-  @PostMapping("user")
+  @PostMapping("sign-up")
   @ResponseStatus(HttpStatus.CREATED)
   public User createdUser(@RequestBody UserDTO dto) {
     return userService.signUp(dto);

@@ -1,5 +1,6 @@
 package com.example.demo.utils;
 
+import com.example.demo.contracts.RoleName;
 import com.example.demo.contracts.SecurityConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
@@ -13,25 +14,35 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-  public String createdAccessToken(String key, String email, String roleName) {
+  public String createdAccessToken(String key, Long id, String email, RoleName roleName) {
     return createToken(
-        key, email, roleName, new Date(new Date().getTime() + Duration.ofMinutes(30).toMillis()));
+        key,
+        id,
+        email,
+        roleName,
+        new Date(new Date().getTime() + Duration.ofMinutes(30).toMillis()));
   }
 
-  public String createdRefreshToken(String key, String email, String roleName) {
+  public String createdRefreshToken(String key, Long id, String email, RoleName roleName) {
     return createToken(
-        key, email, roleName, new Date(new Date().getTime() + Duration.ofMinutes(60).toMillis()));
+        key,
+        id,
+        email,
+        roleName,
+        new Date(new Date().getTime() + Duration.ofMinutes(60).toMillis()));
   }
 
-  private String createToken(String secretKey, String email, String roleName, Date expiration) {
+  private String createToken(
+          String secretKey, Long id, String email, RoleName roleName, Date expiration) {
     Date now = new Date();
     return Jwts.builder()
         .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
         .setIssuer("fresh")
         .setIssuedAt(now)
         .setExpiration(expiration)
+        .claim("id", id)
         .claim("email", email)
-        .claim("authority", roleName)
+        .claim("roleName", roleName)
         .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
   }
