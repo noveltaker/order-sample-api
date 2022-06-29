@@ -39,4 +39,11 @@ public class Product {
     this.name = name;
     this.amount = amount;
   }
+
+  @Builder(builderClassName = "defaultBuilder", builderMethodName = "defaultBuilder")
+  public Product(Long id, String name, String amount) {
+    this.id = id;
+    this.name = name;
+    this.amount = amount;
+  }
 }

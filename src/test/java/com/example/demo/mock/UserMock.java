@@ -9,6 +9,6 @@ public class UserMock {
   private static final String password = "12345";
 
   public static User createdMock() {
-    return User.builder().email(email).password(password).build();
+    return User.defaultBuilder().id(1L).email(email).password(password).build();
   }
 }
