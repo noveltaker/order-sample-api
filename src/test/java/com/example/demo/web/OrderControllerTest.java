@@ -4,10 +4,12 @@ import com.example.demo.config.security.DomainUser;
 import com.example.demo.domain.Order;
 import com.example.demo.domain.User;
 import com.example.demo.mock.OrderMock;
+import com.example.demo.mock.PageDTOMock;
 import com.example.demo.mock.ProductMock;
 import com.example.demo.mock.UserMock;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.dto.OrderInfo;
+import com.example.demo.service.dto.PageDTO;
 import com.example.demo.utils.AuthUtil;
 import com.example.demo.utils.JwtUtil;
 import com.example.demo.utils.MessageUtil;
@@ -125,10 +127,14 @@ class OrderControllerTest {
 
     BDDMockito.given(orderService.getOrders(any(), any())).willReturn(pageMocks);
 
+    PageDTO pageDTO = PageDTOMock.createdDTO();
+
     ResultActions action =
         mockMvc
             .perform(
                 MockMvcRequestBuilders.get("/orders")
+                    .param("size", pageDTO.getSize().toString())
+                    .param("page", pageDTO.getPage().toString())
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8"))
             .andDo(print());
