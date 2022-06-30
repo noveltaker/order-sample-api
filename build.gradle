@@ -1,7 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id "org.asciidoctor.convert" version "1.5.9.2"
     id 'java'
 }
 
@@ -29,47 +28,17 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.security:spring-security-jwt:1.1.1.RELEASE"
     implementation "com.auth0:jwks-rsa:0.3.0"
     implementation "io.jsonwebtoken:jjwt:0.9.1"
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
 
-
-ext {
-    snippetsDir = file('build/generated-snippets')
-}
-
 test {
-    outputs.dir snippetsDir
-}
-
-asciidoctor {
-    inputs.dir snippetsDir
-    dependsOn test
-}
-
-bootJar {
-    dependsOn asciidoctor
-    from("${asciidoctor.outputDir}/html5") {
-        into 'static/docs'
-    }
-}
-
-// copy rest docs
-task copyDocument(type: Copy) {
-    dependsOn asciidoctor
-
-    from file("build/asciidoc/html5/")
-    into file("src/main/resources/static/docs")
-}
-
-build {
-    dependsOn copyDocument
+    exclude '**/*'
 }

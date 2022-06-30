@@ -23,8 +23,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,16 +37,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
 @AutoConfigureRestDocs
-@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(value = OrderController.class)
 class OrderControllerTest {
 
@@ -67,16 +62,10 @@ class OrderControllerTest {
   @MockBean private OrderService orderService;
 
   @BeforeEach
-  void init(RestDocumentationContextProvider restDocumentation) {
+  void init() {
     mockMvc =
         MockMvcBuilders.standaloneSetup(new OrderController(orderService))
             .addFilter(new CharacterEncodingFilter("UTF-8", true))
-            .apply(documentationConfiguration(restDocumentation))
-            .alwaysDo(
-                document(
-                    "{method-name}",
-                    preprocessRequest(prettyPrint()),
-                    preprocessResponse(prettyPrint())))
             .build();
 
     User user = UserMock.createdMock();
