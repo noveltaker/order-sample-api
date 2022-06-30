@@ -6,12 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
 
-  private final String email;
+  private String email;
 
-  private final String password;
+  private String password;
 
   public User toEntity(String encodePassword) {
     return User.builder().email(this.email).password(encodePassword).build();
