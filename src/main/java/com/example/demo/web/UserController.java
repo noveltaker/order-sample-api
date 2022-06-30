@@ -4,13 +4,14 @@ import com.example.demo.domain.User;
 import com.example.demo.service.UserService;
 import com.example.demo.service.dto.UserDTO;
 import com.example.demo.utils.SessionUtil;
+import com.example.demo.web.docs.UserControllerDocs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserControllerDocs {
 
   private final UserService userService;
 

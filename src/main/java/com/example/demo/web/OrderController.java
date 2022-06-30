@@ -5,6 +5,7 @@ import com.example.demo.service.OrderService;
 import com.example.demo.service.dto.OrderInfo;
 import com.example.demo.service.dto.PageDTO;
 import com.example.demo.utils.SessionUtil;
+import com.example.demo.web.docs.OrderControllerDocs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-public class OrderController {
+public class OrderController implements OrderControllerDocs {
 
   private final OrderService orderService;
 
