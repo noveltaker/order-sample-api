@@ -120,4 +120,23 @@ class UserControllerTest {
         .andExpect(jsonPath("$['email']").value(mock.getEmail()))
         .andExpect(jsonPath("$['password']").value(mock.getPassword()));
   }
+
+  @Test
+  @DisplayName("로그아웃")
+  void logout() throws Exception {
+
+    BDDMockito.willDoNothing().given(userService).logout(any());
+
+    ResultActions action =
+        mockMvc
+            .perform(
+                MockMvcRequestBuilders.post("/logout")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("UTF-8"))
+            .andDo(print());
+
+    BDDMockito.then(userService).should().logout(any());
+
+    action.andExpect(status().isOk());
+  }
 }
