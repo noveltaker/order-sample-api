@@ -71,13 +71,6 @@ class JwtValidFilterTest {
   }
 
   @Test
-  @DisplayName("not skip url 체크")
-  void validFilter_not_skip() throws ServletException, IOException {
-    req.setRequestURI("/api");
-    Assertions.assertThrows(IllegalArgumentException.class, () -> filter.doFilter(req, res, chain));
-  }
-
-  @Test
   @DisplayName("login url 체크")
   void validFilter_Login_Path() throws ServletException, IOException {
     req.setRequestURI("/login");
