@@ -7,6 +7,7 @@ import com.example.demo.mock.OrderMock;
 import com.example.demo.mock.ProductMock;
 import com.example.demo.mock.UserMock;
 import com.example.demo.service.OrderService;
+import com.example.demo.service.dto.OrderInfo;
 import com.example.demo.utils.AuthUtil;
 import com.example.demo.utils.JwtUtil;
 import com.example.demo.utils.MessageUtil;
@@ -18,6 +19,7 @@ import org.mockito.BDDMockito;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
@@ -112,5 +114,39 @@ class OrderControllerTest {
         .andExpect(jsonPath("$['product']['id']").value(mock.getProduct().getId()))
         .andExpect(jsonPath("$['product']['name']").value(mock.getProduct().getName()))
         .andExpect(jsonPath("$['product']['amount']").value(mock.getProduct().getAmount()));
+  }
+
+  @Test
+  @DisplayName("주문 조회 목록 API")
+  void getOrderByUser() throws Exception {
+
+    Page<OrderInfo> pageMocks =
+        OrderMock.createdPageMock(UserMock.createdMock(), ProductMock.createdMock());
+
+    BDDMockito.given(orderService.getOrders(any(), any())).willReturn(pageMocks);
+
+    ResultActions action =
+        mockMvc
+            .perform(
+                MockMvcRequestBuilders.get("/orders")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("UTF-8"))
+            .andDo(print());
+
+    BDDMockito.then(orderService).should().getOrders(any(), any());
+
+    action
+        .andExpect(status().isOk())
+        .andExpect(
+            jsonPath("$['content'][0]['orderId']")
+                .value(pageMocks.getContent().get(0).getOrderId()))
+        .andExpect(
+            jsonPath("$['content'][0]['orderDate']")
+                .value(pageMocks.getContent().get(0).getOrderDate()))
+        .andExpect(
+            jsonPath("$['content'][0]['productName']")
+                .value(pageMocks.getContent().get(0).getProductName()))
+        .andExpect(
+            jsonPath("$['content'][0]['amount']").value(pageMocks.getContent().get(0).getAmount()));
   }
 }
