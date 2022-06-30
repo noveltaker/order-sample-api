@@ -4,7 +4,7 @@ import com.example.demo.contracts.RoleName;
 import com.example.demo.domain.RefreshToken;
 import com.example.demo.domain.User;
 import com.example.demo.repository.RefreshTokenRepository;
-import com.example.demo.service.dto.LoginDTO;
+import com.example.demo.service.dto.LoginMsgDTO;
 import com.example.demo.utils.JwtUtil;
 import com.example.demo.utils.MessageUtil;
 import lombok.RequiredArgsConstructor;
@@ -50,8 +50,8 @@ public class DomainSuccessHandler implements AuthenticationSuccessHandler {
 
     String refreshToken = jwtUtil.createdRefreshToken(jwtKey, id, email, roleName);
 
-    LoginDTO loginMessage =
-        LoginDTO.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+    LoginMsgDTO loginMessage =
+        LoginMsgDTO.builder().accessToken(accessToken).refreshToken(refreshToken).build();
 
     RefreshToken refreshTokenData =
         RefreshToken.builder().userId(user.getLoginUser().getId()).token(refreshToken).build();
