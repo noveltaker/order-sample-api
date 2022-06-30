@@ -22,7 +22,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class JwtValidFilter extends OncePerRequestFilter {
 
-  private final Set<String> skipUrls = Set.of("/login", "/sign-up", "/logout");
+  private final Set<String> skipUrls = Set.of("/login", "/sign-up", "/logout" , "/docs/**");
 
   private final JwtUtil jwtUtil;
 
