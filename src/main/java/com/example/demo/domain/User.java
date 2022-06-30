@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import com.example.demo.contracts.RoleName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class User extends AbstractDateEntity {
   @Enumerated(EnumType.STRING)
   private RoleName roleName;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user")
   private Set<Order> orders = new HashSet<>();
 

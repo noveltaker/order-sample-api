@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderMock {
 
   public static Order createdMock(User user, Product product) {
-    return Order.builder().user(user).product(product).build();
+    return Order.builder().id(1L).user(user).product(product).build();
   }
 
   public static Page<OrderInfo> createdPageMock(User user, Product product) {

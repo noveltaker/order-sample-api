@@ -1,7 +1,5 @@
 jwt:
   key: testasdfasdfasdf
-
-
 user:
   id: 1
   email: test@naver.com

@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Product {
   // 상품 금액 (원화)
   private String amount;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "product")
   private Set<Order> orders = new HashSet<>();
 
