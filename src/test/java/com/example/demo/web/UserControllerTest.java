@@ -107,7 +107,7 @@ class UserControllerTest {
             .andDo(print())
             .andDo(
                 document(
-                    "created-order",
+                    "sign-up",
                     requestFields(
                         fieldWithPath("email").description("주문일"),
                         fieldWithPath("password").description("주문 아이디"))));

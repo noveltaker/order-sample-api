@@ -6,11 +6,110 @@ endif::[]
 :toclevels: 2
 :sectlinks:
 
-[[created-order]]
-== Order
+// 유저 API
+
+[[user]]
+== 유저
+
+[[resources-sign-up]]
+=== 회원가입 API
+
+==== Curl Request
+
+include::{snippets}/sign-up/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/sign-up/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/sign-up/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/sign-up/httpie-request.adoc[]
+
+==== RequestBody
+
+include::{snippets}/sign-up/request-body.adoc[]
+
+==== Request Fields
+
+include::{snippets}/sign-up/request-fields.adoc[]
+
+==== Response Body
+
+include::{snippets}/sign-up/response-body.adoc[]
+
+// 로그아웃
+
+[[resources-logout]]
+=== 로그아웃 API
+
+==== Curl Request
+
+include::{snippets}/logout/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/logout/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/logout/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/logout/httpie-request.adoc[]
+
+==== RequestBody
+
+include::{snippets}/logout/request-body.adoc[]
+
+==== Response Body
+
+include::{snippets}/logout/response-body.adoc[]
+
+// 상품 API
+
+[[product]]
+== 상품
+
+[[resources-get-products]]
+=== 상품 API
+
+==== Curl Request
+
+include::{snippets}/get-products/curl-request.adoc[]
+
+==== HTTP request
+
+include::{snippets}/get-products/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/get-products/http-response.adoc[]
+
+==== HTTPIE response
+
+include::{snippets}/get-products/httpie-request.adoc[]
+
+==== RequestBody
+
+include::{snippets}/get-products/request-body.adoc[]
+
+==== Response Body
+
+include::{snippets}/get-products/response-body.adoc[]
+
+
+// 주문 API
+[[order]]
+== 주문
 
 [[resources-created-order]]
-=== Order 생성
+=== 주문 API
 
 ==== Curl Request
 
@@ -32,168 +131,37 @@ include::{snippets}/created-order/httpie-request.adoc[]
 
 include::{snippets}/created-order/request-body.adoc[]
 
-==== Request Fields
-
-include::{snippets}/created-order/request-fields.adoc[]
-
 ==== Response Body
 
 include::{snippets}/created-order/response-body.adoc[]
 
-[[created-order_4xx-client-error]]
-=== Order 생성 (4xxError)
+// 주문 조회 API 시작
+
+[[resources-get-order-by-user]]
+=== 주문 조회 API
 
 ==== Curl Request
 
-include::{snippets}/created-order_4xx-client-error/curl-request.adoc[]
+include::{snippets}/get-order-by-user/curl-request.adoc[]
 
 ==== HTTP request
 
-include::{snippets}/created-order_4xx-client-error/http-request.adoc[]
+include::{snippets}/get-order-by-user/http-request.adoc[]
 
 ==== HTTP response
 
-include::{snippets}/created-order_4xx-client-error/http-response.adoc[]
+include::{snippets}/get-order-by-user/http-response.adoc[]
 
 ==== HTTPIE response
 
-include::{snippets}/created-order_4xx-client-error/httpie-request.adoc[]
+include::{snippets}/get-order-by-user/httpie-request.adoc[]
 
-[[get-order-list]]
-=== Order 전체 목록
+==== RequestBody
 
-==== Curl Request
-
-include::{snippets}/get-order-list/curl-request.adoc[]
-
-==== HTTP request
-
-include::{snippets}/get-order-list/http-request.adoc[]
-
-==== HTTP response
-
-include::{snippets}/get-order-list/http-response.adoc[]
-
-==== HTTPIE response
-
-include::{snippets}/get-order-list/httpie-request.adoc[]
+include::{snippets}/get-order-by-user/request-body.adoc[]
 
 ==== Response Body
 
-include::{snippets}/get-order-list/response-body.adoc[]
+include::{snippets}/get-order-by-user/response-body.adoc[]
 
-[[get-order-list_4xx-client-error]]
-=== Order 전체 목록 (4xx)
-
-==== Curl Request
-
-include::{snippets}/get-order-list_4xx-client-error/curl-request.adoc[]
-
-==== HTTP request
-
-include::{snippets}/get-order-list_4xx-client-error/http-request.adoc[]
-
-==== HTTP response
-
-include::{snippets}/get-order-list_4xx-client-error/http-response.adoc[]
-
-==== HTTPIE response
-
-include::{snippets}/get-order-list_4xx-client-error/httpie-request.adoc[]
-
-==== Response Body
-
-include::{snippets}/get-order-list_4xx-client-error/response-body.adoc[]
-
-[[get-order-one]]
-=== Order 단일
-
-==== Curl Request
-
-include::{snippets}/get-order-one/curl-request.adoc[]
-
-==== HTTP request
-
-include::{snippets}/get-order-one/http-request.adoc[]
-
-==== HTTP response
-
-include::{snippets}/get-order-one/http-response.adoc[]
-
-==== HTTPIE response
-
-include::{snippets}/get-order-one/httpie-request.adoc[]
-
-==== Response Body
-
-include::{snippets}/get-order-one/response-body.adoc[]
-
-[[get-order-one_-no-content]]
-=== Order 단일 (no content)
-
-==== Curl Request
-
-include::{snippets}/get-order-one_-no-content/curl-request.adoc[]
-
-==== HTTP request
-
-include::{snippets}/get-order-one_-no-content/http-request.adoc[]
-
-==== HTTP response
-
-include::{snippets}/get-order-one_-no-content/http-response.adoc[]
-
-==== HTTPIE response
-
-include::{snippets}/get-order-one_-no-content/httpie-request.adoc[]
-
-==== Response Body
-
-include::{snippets}/get-order-one_-no-content/response-body.adoc[]
-
-[[get-product-orders]]
-=== Product's Orders 목록
-
-==== Curl Request
-
-include::{snippets}/get-product-orders/curl-request.adoc[]
-
-==== HTTP request
-
-include::{snippets}/get-product-orders/http-request.adoc[]
-
-==== HTTP response
-
-include::{snippets}/get-product-orders/http-response.adoc[]
-
-==== HTTPIE response
-
-include::{snippets}/get-product-orders/httpie-request.adoc[]
-
-==== Response Body
-
-include::{snippets}/get-product-orders/response-body.adoc[]
-
-[[get-user-orders]]
-=== User's Orders 목록
-
-==== Curl Request
-
-include::{snippets}/get-user-orders/curl-request.adoc[]
-
-==== HTTP request
-
-include::{snippets}/get-user-orders/http-request.adoc[]
-
-==== HTTP response
-
-include::{snippets}/get-user-orders/http-response.adoc[]
-
-==== HTTPIE response
-
-include::{snippets}/get-user-orders/httpie-request.adoc[]
-
-==== Response Body
-
-include::{snippets}/get-user-orders/response-body.adoc[]
 
